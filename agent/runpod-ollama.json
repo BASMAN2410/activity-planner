@@ -1,0 +1,30 @@
+{
+    "name": "WhatsBot-Ollama",
+    "container": {
+        "image": "whatsbot-ollama:latest",
+        "ports": [
+            {
+                "containerPort": 11434,
+                "hostPort": 11434,
+                "protocol": "TCP"
+            }
+        ],
+        "env": {
+            "OLLAMA_MODEL": "llama3"
+        }
+    },
+    "resources": {
+        "gpu": "NVIDIA RTX 4000",
+        "vcpu": 4,
+        "memory": "16GB",
+        "disk": "50GB"
+    },
+    "ports": [11434],
+    "volumeMounts": [
+        {
+            "hostPath": "/data/models",
+            "containerPath": "/root/.ollama/models",
+            "type": "bind"
+        }
+    ]
+} 

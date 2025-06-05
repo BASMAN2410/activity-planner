@@ -1,0 +1,37 @@
+{
+    "name": "WhatsBot",
+    "container": {
+        "image": "whatsbot:latest",
+        "ports": [
+            {
+                "containerPort": 8000,
+                "hostPort": 8000,
+                "protocol": "TCP"
+            },
+            {
+                "containerPort": 11434,
+                "hostPort": 11434,
+                "protocol": "TCP"
+            }
+        ],
+        "env": {
+            "SLACK_BOT_TOKEN": "",
+            "OLLAMA_API_URL": "http://localhost:11434",
+            "OLLAMA_MODEL": "llama3"
+        }
+    },
+    "resources": {
+        "gpu": "NVIDIA RTX 4000",
+        "vcpu": 4,
+        "memory": "16GB",
+        "disk": "20GB"
+    },
+    "ports": [8000, 11434],
+    "volumeMounts": [
+        {
+            "hostPath": "/data/models",
+            "containerPath": "/root/.ollama/models",
+            "type": "bind"
+        }
+    ]
+} 
