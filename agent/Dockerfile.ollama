@@ -1,32 +1,34 @@
 # Use CUDA base image for GPU support
 FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 
-# Install system dependencies
+# Install system dependencies and tools
 RUN apt-get update && apt-get install -y \
     curl \
+    git \
+    net-tools \
+    iputils-ping \
+    htop \
+    vim \
+    wget \
+    netcat \
+    lsof \
+    procps \
+    iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Ollama
 RUN curl -L https://ollama.ai/download/ollama-linux-amd64 -o /usr/local/bin/ollama \
     && chmod +x /usr/local/bin/ollama
 
-# Create startup script
-RUN echo '#!/bin/bash\n\
-# Start Ollama\n\
-ollama serve &\n\
-\n\
-# Wait for Ollama to start\n\
-sleep 5\n\
-\n\
-# Pull the required model\n\
-ollama pull llama3\n\
-\n\
-# Keep container running\n\
-tail -f /dev/null\n\
-' > /start.sh && chmod +x /start.sh
+# Create app directory
+WORKDIR /app
+
+# Copy startup script
+COPY scripts/ollama-start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 # Expose Ollama port
 EXPOSE 11434
 
 # Set the startup command
-CMD ["/start.sh"] 
+CMD ["/app/start.sh"] 
