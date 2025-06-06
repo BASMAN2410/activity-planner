@@ -2,7 +2,7 @@
 Question answering integration using Llama.
 """
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 from ..llama import llama
 from ..models import QuestionResponse
 import logging
@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 async def handle_ask(request: Request):
     data = await request.json()
     if "challenge" in data:
-        # Slack URL verification
-        return JSONResponse(content={"challenge": data["challenge"]})
+        # Slack URL verification (plain text response)
+        return PlainTextResponse(content=data["challenge"])
 
     # Normal question processing
     try:
