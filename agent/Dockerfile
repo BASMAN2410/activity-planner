@@ -3,17 +3,19 @@ FROM python:3.9-slim
 
 # Install system tools and dependencies
 RUN apt-get update && apt-get install -y \
+    curl \
     git \
     net-tools \
     iputils-ping \
     htop \
     vim \
     wget \
-    netcat \
+    netcat-openbsd \
     lsof \
     procps \
     iproute2 \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Set working directory
 WORKDIR /app

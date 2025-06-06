@@ -16,7 +16,7 @@ netstat -tulpn
 # Check Ollama connectivity
 echo -e "\nChecking Ollama connectivity:"
 for i in {1..5}; do
-    if nc -z whatsbot-ollama 11434; then
+    if nc -z 3vsrtr8cbw2o8t-11434.proxy.runpod.net 443; then
         echo "✅ Successfully connected to Ollama service"
         break
     fi
@@ -31,7 +31,7 @@ done
 
 # Test Ollama API
 echo -e "\nTesting Ollama API:"
-curl -s "http://whatsbot-ollama:11434/api/tags" > /dev/null
+curl -s "https://3vsrtr8cbw2o8t-11434.proxy.runpod.net/api/tags" > /dev/null
 if [ $? -eq 0 ]; then
     echo "✅ Ollama API is responding"
 else

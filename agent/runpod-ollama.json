@@ -1,7 +1,7 @@
 {
     "name": "WhatsBot-Ollama",
     "container": {
-        "image": "whatsbot-ollama:latest",
+        "image": "${DOCKER_USERNAME}/whatsbot-ollama:latest",
         "ports": [
             {
                 "containerPort": 11434,
@@ -10,7 +10,8 @@
             }
         ],
         "env": {
-            "OLLAMA_MODEL": "llama3"
+            "OLLAMA_MODEL": "llama2",
+            "NVIDIA_VISIBLE_DEVICES": "all"
         }
     },
     "resources": {
@@ -26,5 +27,6 @@
             "containerPath": "/root/.ollama/models",
             "type": "bind"
         }
-    ]
+    ],
+    "networkMode": "bridge"
 } 
